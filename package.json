@@ -1,0 +1,25 @@
+{
+  "name": "exprest",
+  "version": "0.1.0",
+  "description": "Flexible REST API library for Express and Bookshelf.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kvokov/exprest.git"
+  },
+  "keywords": [
+    "REST",
+    "Node.js",
+    "Express",
+    "Bookshelf"
+  ],
+  "author": "DK <kvokovdl@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kvokov/exprest/issues"
+  },
+  "homepage": "https://github.com/kvokov/exprest#readme"
+}
