@@ -1,25 +1,36 @@
 {
   "name": "exprest",
   "version": "0.1.0",
-  "description": "Flexible REST API library for Express and Bookshelf.js",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "REST API for Express and Bookshelf.js",
+  "keywords": [
+    "rest",
+    "restful",
+    "api",
+    "node",
+    "express",
+    "bookshelf"
+  ],
+  "author": "DK <kvokovdl@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kvokov/exprest.git"
   },
-  "keywords": [
-    "REST",
-    "Node.js",
-    "Express",
-    "Bookshelf"
-  ],
-  "author": "DK <kvokovdl@gmail.com>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kvokov/exprest/issues"
   },
-  "homepage": "https://github.com/kvokov/exprest#readme"
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0"
+  }
 }
