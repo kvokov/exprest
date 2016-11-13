@@ -1,5 +1,7 @@
 # ExpREST
 
+[![npm](https://img.shields.io/npm/v/exp-rest.svg?style=flat)](https://www.npmjs.com/package/exp-rest)  [![Libraries.io for GitHub](https://img.shields.io/librariesio/github/kvokov/exprest.svg?style=flat)]() [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+
 ExpREST helps you build RESTful API with [Express](http://expressjs.com/) and [Bookshelf.js](http://bookshelfjs.org/). Easily create a flexible REST interface for your models, and extend these with your application specific logic.
 
 Try on example - [exprest-example](https://github.com/kvokov/exprest-example)
