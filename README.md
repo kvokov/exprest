@@ -6,7 +6,7 @@ Try on example - [exprest-example](https://github.com/kvokov/exprest-example)
 
 ## Installation
 ```bash
-$ npm install exprest --save
+$ npm install exp-rest --save
 ```
 
 ## Quick Start
@@ -23,7 +23,7 @@ To create CRUD endpoints for your models you just need to pass resources array t
 
 ```javascript
 let app = require('express')();
-let exprest = require('exprest');
+let exprest = require('exp-rest');
 
 app.use(exprest({resources: [User]}));
 
