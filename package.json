@@ -1,5 +1,5 @@
 {
-  "name": "exprest",
+  "name": "exp-rest",
   "version": "0.1.0",
   "description": "REST API for Express and Bookshelf.js",
   "keywords": [
