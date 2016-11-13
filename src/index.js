@@ -61,12 +61,13 @@ function createApi(resource) {
 
 function createEndpoints(resource) {
     router.route('/' + resource.collectionName)
-        .get(createCollectionEndpoint(resource));
+        .get(createCollectionEndpoint(resource))
+        .post(createCreateEndpoint(resource));
 
-    /*
-     router.route('/' + resource.endpoint + '/:id')
-     .get(createItemEndpoint(resource));
-     */
+    router.route('/' + resource.collectionName + '/:identifier')
+        .get(createItemEndpoint(resource))
+        .put(createUpdateEndpoint(resource))
+        .delete(createDeleteEndpoint(resource))
 }
 
 
@@ -99,17 +100,15 @@ function execHooks(resource, time, name, args) {
     //console.log(args);
 }
 
+
 //
 // Endpoints creators --------------------------------------------------------------------------------------------------
 //
-
-
 function createCollectionEndpoint(resource) {
     return (req, res, next) => {
 
-        execHooks(resource, 'before', 'getCollection', [req, res]);
+        //execHooks(resource, 'before', 'getCollection', [req, res]);
 
-        console.log('endpoint')
         let params = {...req.query};
         if(config.pagination) {
             params.page = params.page || 1;
@@ -148,7 +147,7 @@ function createCollectionEndpoint(resource) {
                     headers['x-page-size']  = params.size;
                 }
 
-                execHooks(resource, 'after', 'getCollection', [req, res]);
+                //execHooks(resource, 'after', 'getCollection', [req, res, items]);
 
                 res.set(headers).send(items);
             })
@@ -156,10 +155,14 @@ function createCollectionEndpoint(resource) {
     }
 }
 
+
 function createItemEndpoint(resource) {
     return (req, res, next) => {
+
+        //execHooks(resource, 'before', 'getItem', [req, res]);
+
         let criteria = {};
-        criteria[resource.identifier] = req.params.id;
+        criteria[resource.identifier] = req.params.identifier;
 
         new resource.model()
             .where(criteria)
@@ -168,7 +171,93 @@ function createItemEndpoint(resource) {
                 if(!item) {
                     return next(new Error('Not Found', 404));
                 }
-                res.json(item);
+
+                //execHooks(resource, 'after', 'getItem', [req, res, item]);
+
+                res.send(item);
+            })
+            .catch(next);
+    }
+}
+
+
+function createCreateEndpoint(resource) {
+    return (req, res, next) => {
+
+        //execHooks(resource, 'before', 'createItem', [req, res]);
+
+        let doc = {...req.body};
+
+        new resource.model(doc)
+            .save()
+            .then((item) => {
+
+                //execHooks(resource, 'after', 'createItem', [req, res, item]);
+
+                res.status(201).send(item);
+            })
+            .catch(next);
+    }
+}
+
+
+function createUpdateEndpoint(resource) {
+    return (req, res, next) => {
+
+        //execHooks(resource, 'before', 'updateItem', [req, res]);
+
+        let doc = {...req.body};
+
+        let criteria = {};
+        criteria[resource.identifier] = req.params.identifier;
+
+
+        new resource.model()
+            .where(criteria)
+            .fetch()
+            .then((item) => {
+                if(!item) {
+                    return next(new Error('Not Found', 404));
+                }
+
+                item.save(doc)
+                    .then((item) => {
+
+                        //execHooks(resource, 'after', 'updateItem', [req, res, item]);
+
+                        res.send(item);
+                    })
+                    .catch(next);
+            })
+            .catch(next);
+    }
+}
+
+
+function createDeleteEndpoint(resource) {
+    return (req, res, next) => {
+
+        //execHooks(resource, 'before', 'deleteItem', [req, res]);
+
+        let criteria = {};
+        criteria[resource.identifier] = req.params.identifier;
+
+        new resource.model()
+            .where(criteria)
+            .fetch()
+            .then((item) => {
+                if(!item) {
+                    return next(new Error('Not Found', 404));
+                }
+
+                item.destroy()
+                    .then((item) => {
+
+                        //execHooks(resource, 'after', 'updateItem', [req, res, item]);
+
+                        res.status(204).send();
+                    })
+                    .catch(next);
             })
             .catch(next);
     }
