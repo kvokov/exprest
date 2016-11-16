@@ -4,6 +4,9 @@
 
 ExpREST helps you build RESTful API with [Express](http://expressjs.com/) and [Bookshelf.js](http://bookshelfjs.org/). Easily create a flexible REST interface for your models, and extend these with your application specific logic.
 
+[![npm](https://nodei.co/npm/exp-rest.png?stars=true)](https://www.npmjs.com/package/exp-rest)
+
+
 Try on example - [exprest-example](https://github.com/kvokov/exprest-example)
 
 ## Installation
